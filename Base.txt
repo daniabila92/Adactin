@@ -1,0 +1,100 @@
+package com.mavenprojectnew;
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class Base {
+	public static WebDriver driver;
+	//get browserlaunch
+	public static  WebDriver browserlaunch(String Browser) {
+		if(Browser.equalsIgnoreCase("chrome")){
+			System.setProperty("webdriver.chrome.driver","C:\\Users\\WELCOME\\eclipse-workspace\\mavenprojectnew\\driver\\chromedriver.exe");
+			 driver= new ChromeDriver();
+			
+		}
+		else if(Browser.equalsIgnoreCase("firefox")) {
+				System.setProperty("webdriver.gecko.driver","C:\\Users\\WELCOME\\eclipse-workspace\\selenium\\Driver\\Firefox.driver.exe");
+				driver= new FirefoxDriver();
+				}
+		else
+		{
+			System.out.println("Invalid Browser");
+			}
+	return driver;
+		} 
+	//getlaunch url
+	public static void launch_url(String url) {
+		driver.get(url);
+		
+	}
+	//public static void getcurrenturl() {
+		//String  currenturl=driver.getCurrentUrl();
+		//System.out.println(currenturl);		
+	//}
+	//getpage tilte
+public static void getpageTitle() {
+		String title= driver.getTitle();
+	System.out.println("Title:"+title);
+	}
+ public static void printscreen(String filename) throws IOException {
+		    TakesScreenshot ts=(TakesScreenshot) driver;
+		    File source1=ts.getScreenshotAs(OutputType.FILE);
+			File target1= new File("C:\\Users\\WELCOME\\eclipse-workspace\\mavenprojectnew\\screenshot\\"+filename+".png");
+			FileUtils.copyFile(source1,target1);
+				  
+	}
+	 public static WebDriver closewindow() {
+	 driver.close();
+	return driver;
+	 }
+		
+
+	 public static void  sendvalues(WebElement element,String value) {
+		// send keys
+		 element.sendKeys(value);
+		
+	}
+	 public static  void clickonemelement(WebElement element) {
+		 element.click();
+
+	 }
+public static void single_dropdown(WebElement element,String methodtype,String value ) {
+ Select  s= new Select(element);
+if(methodtype.equalsIgnoreCase("value"))
+{
+	s.selectByValue(value);
+}
+else if(methodtype.equalsIgnoreCase("visible"))
+	 {
+		 s.selectByVisibleText(value);
+	 }
+else if (methodtype.equalsIgnoreCase("index"))
+	 {
+		 int index=Integer.parseInt(value);
+		 s.deselectByIndex(index);
+	 }
+	 
+	 
+	 }
+
+public static  void isdisplayed() {
+
+	// TODO Auto-generated method stub
+
+}
+
+}
+
+
+//stock -->both or stock 
+//sale-->both sales 
+
+
